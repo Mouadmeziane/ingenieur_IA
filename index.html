@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Meziane Mouad — Ingénieur IA</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #07090f;
+    --border: #1a1a2e;
+    --accent: #7c3aed;
+    --accent2: #a78bfa;
+    --accent3: #06b6d4;
+    --text: #e8e8f0;
+    --muted: #6b6b85;
+    --card: #0f111a;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Lora', Georgia, serif; line-height: 1.7; overflow-x: hidden; }
+
+  body::before {
+    content: ''; position: fixed; inset: 0;
+    background-image: linear-gradient(rgba(124,58,237,.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(124,58,237,.04) 1px, transparent 1px);
+    background-size: 60px 60px; pointer-events: none; z-index: 0;
+  }
+  body::after {
+    content: ''; position: fixed; top: -200px; right: -200px; width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(124,58,237,.08) 0%, transparent 70%);
+    pointer-events: none; z-index: 0;
+  }
+
+  .container { max-width: 880px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(7,9,15,.92); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); padding: .9rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+  .nav-brand { font-family: 'Syne', sans-serif; font-weight: 800; font-size: .9rem; color: var(--text); }
+  .nav-brand span { color: var(--accent2); }
+  .nav-links { display: flex; gap: 1.5rem; list-style: none; align-items: center; }
+  .nav-links a { font-family: 'Syne', sans-serif; font-size: .65rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color .2s; }
+  .nav-links a:hover { color: var(--accent2); }
+  .nav-links .li-link { color: var(--accent3) !important; }
+
+  /* HERO */
+  .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 9rem 0 5rem; }
+  .hero-eyebrow { font-family: 'Syne', sans-serif; font-size: .72rem; letter-spacing: .28em; text-transform: uppercase; color: var(--accent2); margin-bottom: 1.5rem; animation: fadeUp .6s .2s ease both; }
+  .hero-name { font-family: 'Syne', sans-serif; font-size: clamp(2.8rem, 7vw, 5.5rem); font-weight: 800; line-height: 1; letter-spacing: -.02em; margin-bottom: .5rem; animation: fadeUp .6s .35s ease both; }
+  .hero-title { font-family: 'Syne', sans-serif; font-size: clamp(1.1rem, 2.5vw, 1.8rem); font-weight: 600; background: linear-gradient(135deg, var(--accent2) 0%, var(--accent3) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 1.8rem; animation: fadeUp .6s .5s ease both; }
+  .hero-intro { font-size: 1.05rem; color: var(--muted); max-width: 580px; font-style: italic; line-height: 1.8; animation: fadeUp .6s .65s ease both; }
+  .hero-badges { display: flex; flex-wrap: wrap; gap: .55rem; margin-top: 2.2rem; animation: fadeUp .6s .8s ease both; }
+  .badge { font-family: 'Syne', sans-serif; font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; padding: .32rem .8rem; border-radius: 2px; border: 1px solid var(--border); color: var(--muted); background: var(--card); }
+  .badge.hi  { border-color: var(--accent2); color: var(--accent2); background: rgba(124,58,237,.08); }
+  .badge.hi2 { border-color: var(--accent3); color: var(--accent3); background: rgba(6,182,212,.07); }
+  .hero-actions { display: flex; align-items: center; gap: 1.2rem; margin-top: 2.2rem; animation: fadeUp .6s .95s ease both; }
+  .linkedin-btn { display: inline-flex; align-items: center; gap: .55rem; font-family: 'Syne', sans-serif; font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; text-decoration: none; padding: .65rem 1.3rem; border: 1px solid var(--accent3); color: var(--accent3); background: rgba(6,182,212,.07); transition: all .25s; }
+  .linkedin-btn:hover { background: rgba(6,182,212,.15); transform: translateY(-2px); }
+  .linkedin-btn svg { width: 15px; height: 15px; fill: var(--accent3); flex-shrink: 0; }
+  .scroll-hint { font-family: 'Syne', sans-serif; font-size: .62rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; gap: .8rem; animation: fadeUp .6s 1.1s ease both; margin-top: 3rem; }
+  .scroll-hint::after { content: ''; width: 36px; height: 1px; background: var(--muted); }
+
+  /* SECTIONS */
+  section { padding: 5rem 0; border-top: 1px solid var(--border); }
+  .section-label { font-family: 'Syne', sans-serif; font-size: .62rem; letter-spacing: .28em; text-transform: uppercase; color: var(--accent2); margin-bottom: 2.2rem; display: flex; align-items: center; gap: 1rem; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  /* RÉSUMÉ */
+  .summary-text { font-size: 1.1rem; color: var(--text); max-width: 700px; line-height: 1.9; }
+  .summary-text strong { color: var(--accent2); font-weight: 500; font-style: normal; }
+
+  /* PILIERS IA */
+  .pillars-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; margin-top: 2.5rem; }
+  .pillar-card { background: var(--card); border: 1px solid var(--border); padding: 1.6rem; position: relative; overflow: hidden; transition: border-color .3s, transform .3s; }
+  .pillar-card:hover { border-color: var(--accent2); transform: translateY(-3px); }
+  .pillar-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3)); }
+  .pillar-icon { font-size: 1.6rem; margin-bottom: .8rem; }
+  .pillar-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: .9rem; margin-bottom: .4rem; color: var(--accent2); }
+  .pillar-desc { font-size: .85rem; color: var(--muted); line-height: 1.6; }
+
+  /* FORMATION */
+  .edu-stack { display: flex; flex-direction: column; gap: 1.2rem; }
+  .edu-card { background: var(--card); border: 1px solid var(--border); border-left: 3px solid var(--accent2); padding: 1.6rem 1.8rem; transition: border-color .25s; }
+  .edu-card.sec { border-left-color: var(--accent3); }
+  .edu-card:hover { border-color: rgba(124,58,237,.45); }
+  .edu-meta { font-family: 'Syne', sans-serif; font-size: .65rem; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); margin-bottom: .5rem; }
+  .edu-degree { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700; margin-bottom: .3rem; }
+  .edu-school { color: var(--accent3); font-style: italic; font-size: .95rem; }
+
+  /* EXPÉRIENCE */
+  .exp-stack { display: flex; flex-direction: column; }
+  .exp-item { display: grid; grid-template-columns: 1fr auto; gap: 1rem; padding: 2rem 0 2rem 1.6rem; border-bottom: 1px solid var(--border); position: relative; }
+  .exp-item::before { content: ''; position: absolute; left: 0; top: 2.5rem; width: 7px; height: 7px; border-radius: 50%; background: var(--accent2); box-shadow: 0 0 10px var(--accent2); }
+  .exp-role { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: .2rem; }
+  .exp-company { color: var(--accent3); font-style: italic; font-size: .9rem; margin-bottom: .8rem; }
+  .exp-period { font-family: 'Syne', sans-serif; font-size: .65rem; letter-spacing: .1em; color: var(--muted); text-align: right; white-space: nowrap; padding-top: .2rem; }
+  .exp-bullets { padding-left: 1.1rem; }
+  .exp-bullets li { color: var(--muted); font-size: .9rem; margin-bottom: .4rem; }
+  .exp-bullets li::marker { color: var(--accent2); }
+
+  /* COMPÉTENCES */
+  .skills-categories { display: flex; flex-direction: column; gap: 2rem; }
+  .skill-group-label { font-family: 'Syne', sans-serif; font-size: .65rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-bottom: .8rem; }
+  .skill-pills { display: flex; flex-wrap: wrap; gap: .5rem; }
+  .skill-pill { font-family: 'Syne', sans-serif; font-size: .72rem; font-weight: 600; padding: .45rem 1rem; background: var(--card); border: 1px solid var(--border); color: var(--text); transition: all .2s; cursor: default; }
+  .skill-pill:hover { border-color: var(--accent2); color: var(--accent2); }
+  .skill-pill.core { border-color: rgba(124,58,237,.4); color: var(--accent2); background: rgba(124,58,237,.07); }
+  .skill-pill.cloud { border-color: rgba(6,182,212,.35); color: var(--accent3); background: rgba(6,182,212,.06); }
+
+  /* PROJETS */
+  .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; }
+  .project-card { background: var(--card); border: 1px solid var(--border); padding: 1.8rem; transition: all .25s; position: relative; overflow: hidden; }
+  .project-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent2), var(--accent3)); transform: scaleX(0); transition: transform .3s; transform-origin: left; }
+  .project-card:hover { transform: translateY(-4px); border-color: rgba(124,58,237,.35); }
+  .project-card:hover::after { transform: scaleX(1); }
+  .project-label { font-family: 'Syne', sans-serif; font-size: .58rem; letter-spacing: .12em; text-transform: uppercase; color: var(--accent2); margin-bottom: .5rem; }
+  .project-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: .95rem; margin-bottom: .6rem; }
+  .project-desc { color: var(--muted); font-size: .88rem; margin-bottom: 1rem; line-height: 1.6; }
+  .project-tags { display: flex; flex-wrap: wrap; gap: .35rem; }
+  .project-tag { font-family: 'Syne', sans-serif; font-size: .58rem; letter-spacing: .08em; padding: .18rem .5rem; background: rgba(124,58,237,.08); border: 1px solid rgba(124,58,237,.2); color: var(--accent2); border-radius: 2px; }
+
+  /* CLOUD */
+  .cloud-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; }
+  .cloud-card { background: var(--card); border: 1px solid var(--border); padding: 2rem; position: relative; overflow: hidden; transition: border-color .3s, transform .3s; }
+  .cloud-card:hover { border-color: var(--accent3); transform: translateY(-4px); }
+  .cloud-card::before { content: ''; position: absolute; top: 0; right: 0; width: 100px; height: 100px; background: radial-gradient(circle at top right, rgba(6,182,212,.1), transparent 70%); }
+  .cloud-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.4rem; margin-bottom: 1rem; background: linear-gradient(135deg, var(--accent3), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .cloud-title { font-family: 'Syne', sans-serif; font-weight: 700; margin-bottom: .6rem; }
+  .cloud-desc { color: var(--muted); font-size: .9rem; }
+  .cloud-services { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .9rem; }
+  .service-tag { font-family: 'Syne', sans-serif; font-size: .6rem; letter-spacing: .08em; padding: .2rem .6rem; background: rgba(6,182,212,.08); border: 1px solid rgba(6,182,212,.2); color: var(--accent3); border-radius: 2px; }
+
+  /* CERTIFICATIONS */
+  .certs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .cert-item { display: flex; align-items: flex-start; gap: 1rem; padding: 1.2rem 1.4rem; background: var(--card); border: 1px solid var(--border); transition: border-color .2s; }
+  .cert-item:hover { border-color: var(--accent2); }
+  .cert-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: .15rem; }
+  .cert-name { font-family: 'Syne', sans-serif; font-size: .8rem; font-weight: 700; margin-bottom: .2rem; }
+  .cert-org { font-size: .78rem; color: var(--muted); font-style: italic; }
+  .cert-date { font-size: .68rem; color: var(--muted); margin-top: .1rem; }
+  .cert-verify { display: inline-flex; align-items: center; gap: .35rem; font-family: 'Syne', sans-serif; font-size: .62rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent2); text-decoration: none; margin-top: .5rem; padding: .28rem .65rem; border: 1px solid rgba(124,58,237,.3); background: rgba(124,58,237,.06); transition: all .2s; }
+  .cert-verify:hover { background: rgba(124,58,237,.14); border-color: var(--accent2); }
+  .cert-verify svg { width: 10px; height: 10px; fill: var(--accent2); flex-shrink: 0; }
+
+  /* FOOTER */
+  footer { border-top: 1px solid var(--border); padding: 2.5rem 0; position: relative; z-index: 1; }
+  .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: .85rem; color: var(--muted); }
+  .footer-contact { font-family: 'Syne', sans-serif; font-size: .72rem; color: var(--muted); text-align: right; line-height: 1.9; }
+  .footer-contact a { color: var(--accent2); text-decoration: none; }
+  .back-link { font-family: 'Syne', sans-serif; font-size: .68rem; letter-spacing: .15em; text-transform: uppercase; color: var(--accent3); text-decoration: none; border-bottom: 1px solid var(--accent3); padding-bottom: 2px; transition: opacity .2s; display: inline-block; margin-top: .4rem; }
+  .back-link:hover { opacity: .7; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+  .reveal { transition: opacity .7s ease, transform .7s ease; }
+  .reveal.js-hidden { opacity: 0; transform: translateY(28px); }
+  .reveal.js-hidden.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 640px) {
+    .cloud-grid, .projects-grid, .certs-grid, .pillars-grid { grid-template-columns: 1fr; }
+    .exp-item { grid-template-columns: 1fr; }
+    .exp-period { text-align: left; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <div class="nav-brand">M<span>.</span>Mouad</div>
+  <ul class="nav-links">
+    <li><a href="#resume">Résumé</a></li>
+    <li><a href="#formation">Formation</a></li>
+    <li><a href="#experience">Expérience</a></li>
+    <li><a href="#competences">Compétences</a></li>
+    <li><a href="#projets">Projets</a></li>
+    <li><a href="#certifications">Certifications</a></li>
+    <li><a href="https://www.linkedin.com/in/mouad-meziane/" target="_blank" class="li-link">LinkedIn ↗</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <p class="hero-eyebrow">Ingénieur IA · Machine Learning · Deep Learning · MLOps</p>
+    <h1 class="hero-name">Meziane Mouad</h1>
+    <p class="hero-title">Concevoir des systèmes IA qui apprennent, raisonnent et scalent.</p>
+    <p class="hero-intro">
+      Master en Intelligence Artificielle — je conçois et déploie des systèmes intelligents de bout en bout,
+      de la recherche de modèles à la mise en production cloud, avec un fort engagement envers l'éthique et la fiabilité.
+    </p>
+    <div class="hero-badges">
+      <span class="badge hi">Master IA &amp; Computation Digitale</span>
+      <span class="badge hi">Deep Learning</span>
+      <span class="badge hi">Machine Learning</span>
+      <span class="badge hi2">AWS Cloud</span>
+      <span class="badge hi2">Azure Cloud</span>
+      <span class="badge">Python · PyTorch · TensorFlow</span>
+      <span class="badge">MLOps · Airflow · PySpark</span>
+    </div>
+    <div class="hero-actions">
+      <a class="linkedin-btn" href="https://www.linkedin.com/in/mouad-meziane/" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        Me rejoindre sur LinkedIn
+      </a>
+    </div>
+    <div class="scroll-hint">Défiler pour explorer</div>
+  </div>
+</section>
+
+<!-- RÉSUMÉ -->
+<section id="resume">
+  <div class="container reveal">
+    <p class="section-label">01 — Qui suis-je</p>
+    <p class="summary-text">
+      Je suis un <strong>Ingénieur en Intelligence Artificielle</strong> titulaire d'un <strong>Master en IA et Computation Digitale</strong>,
+      spécialisé dans la conception, le développement et le déploiement de systèmes intelligents qui résolvent des problèmes réels à grande échelle.
+      <br><br>
+      Mon expertise couvre l'intégralité du cycle de vie de l'IA : de la <strong>recherche et développement de modèles</strong>
+      (CNN, ResNet, régression, classification) avec PyTorch, TensorFlow et scikit-learn,
+      jusqu'au <strong>déploiement en production</strong> sur AWS et Azure.
+      J'applique des pratiques d'évaluation rigoureuses et accorde une attention particulière
+      à <strong>l'équité des modèles, la réduction des biais et l'IA éthique</strong>.
+      <br><br>
+      J'évolue efficacement dans des équipes multidisciplinaires, traduisant des besoins métiers complexes
+      en <strong>solutions IA fiables et scalables</strong> — avec un esprit orienté production et un engagement constant envers l'amélioration continue.
+    </p>
+
+    <!-- 3 PILIERS IA -->
+    <div class="pillars-grid">
+      <div class="pillar-card">
+        <div class="pillar-icon">🧠</div>
+        <div class="pillar-title">Développement de Modèles</div>
+        <div class="pillar-desc">Conception et optimisation de modèles ML/DL — CNN, ResNet, gradient boosting — avec évaluation rigoureuse et tuning d'hyperparamètres via Optuna et MLflow.</div>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-icon">🚀</div>
+        <div class="pillar-title">IA en Production</div>
+        <div class="pillar-desc">MLOps de bout en bout : suivi d'expériences, orchestration de pipelines avec Airflow, déploiement conteneurisé avec Docker et FastAPI sur AWS et Azure.</div>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-icon">⚖️</div>
+        <div class="pillar-title">IA Responsable</div>
+        <div class="pillar-desc">Application des bonnes pratiques : interprétabilité des modèles, détection de biais, évaluation de l'équité et prise de décision éthique dans les systèmes IA.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMATION -->
+<section id="formation">
+  <div class="container reveal">
+    <p class="section-label">02 — Formation</p>
+    <div class="edu-stack">
+      <div class="edu-card">
+        <div class="edu-meta">Sept 2023 – Juin 2025</div>
+        <div class="edu-degree">Master — Intelligence Artificielle &amp; Computation Digitale</div>
+        <div class="edu-school">Université Sultan Moulay Slimane · Faculté des Sciences et Techniques</div>
+      </div>
+      <div class="edu-card sec">
+        <div class="edu-meta">Sept 2019 – Juin 2023</div>
+        <div class="edu-degree">Licence — Informatique, Réseaux &amp; Multimédia</div>
+        <div class="edu-school">Université Hassan II · Faculté des Sciences et Techniques</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPÉRIENCE -->
+<section id="experience">
+  <div class="container reveal">
+    <p class="section-label">03 — Expérience</p>
+    <div class="exp-stack">
+
+      <div class="exp-item">
+        <div>
+          <div class="exp-role">Ingénieur IA &amp; Data — Stage PFE</div>
+          <div class="exp-company">EURAFRIC INFORMATION · Casablanca</div>
+          <ul class="exp-bullets">
+            <li>Conception et entraînement d'un modèle ML de prédiction du risque de défaut client à partir de données financières et comportementales.</li>
+            <li>Construction d'un pipeline complet de feature engineering depuis un data lake Medallion, garantissant qualité et traçabilité.</li>
+            <li>Industrialisation des use cases IA avec PySpark &amp; Airflow pour des workflows d'inférence reproductibles et scalables.</li>
+            <li>Définition de KPI et restitution d'insights IA aux équipes métiers pour orienter la prise de décision.</li>
+          </ul>
+        </div>
+        <div class="exp-period">Mars 2025 – Sept 2025</div>
+      </div>
+
+      <div class="exp-item">
+        <div>
+          <div class="exp-role">Chercheur IA — Deep Learning</div>
+          <div class="exp-company">Faculté des Sciences et Techniques · Béni Mellal</div>
+          <ul class="exp-bullets">
+            <li>Conception, implémentation et benchmark de modèles de classification Deep Learning (CNN, ResNet) sous TensorFlow.</li>
+            <li>Évaluation systématique : Accuracy, F1-score, Recall, analyse de la matrice de confusion.</li>
+            <li>Analyse critique des architectures pour sélectionner le modèle le plus robuste et généralisable.</li>
+          </ul>
+        </div>
+        <div class="exp-period">Janv 2024 – Juin 2024</div>
+      </div>
+
+      <div class="exp-item">
+        <div>
+          <div class="exp-role">Data Scientist / IA — Stage PFE</div>
+          <div class="exp-company">EURAFRIC INFORMATION · Casablanca</div>
+          <ul class="exp-bullets">
+            <li>Développement d'un modèle IA de scoring crédit PME (régression logistique) pour l'évaluation de l'éligibilité financière.</li>
+            <li>Analyse exploratoire et sélection de variables financières clés (ratios, indicateurs de trésorerie).</li>
+            <li>Évaluation de l'équité et des performances du modèle avec des métriques adaptées au risque (Recall, F1-score).</li>
+          </ul>
+        </div>
+        <div class="exp-period">Avr 2023 – Juin 2023</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- COMPÉTENCES -->
+<section id="competences">
+  <div class="container reveal">
+    <p class="section-label">04 — Stack Technique</p>
+    <div class="skills-categories">
+
+      <div>
+        <div class="skill-group-label">IA &amp; Machine Learning</div>
+        <div class="skill-pills">
+          <span class="skill-pill core">PyTorch</span>
+          <span class="skill-pill core">TensorFlow</span>
+          <span class="skill-pill core">Scikit-learn</span>
+          <span class="skill-pill core">Deep Learning</span>
+          <span class="skill-pill core">CNN / ResNet</span>
+          <span class="skill-pill">XGBoost</span>
+          <span class="skill-pill">Vision par Ordinateur</span>
+          <span class="skill-pill">NLP</span>
+          <span class="skill-pill">Apprentissage par Renforcement</span>
+          <span class="skill-pill">Optimisation de Modèles</span>
+          <span class="skill-pill">EDA</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="skill-group-label">MLOps &amp; Ingénierie</div>
+        <div class="skill-pills">
+          <span class="skill-pill core">Python</span>
+          <span class="skill-pill core">MLflow</span>
+          <span class="skill-pill core">Optuna</span>
+          <span class="skill-pill core">Apache Airflow</span>
+          <span class="skill-pill">PySpark</span>
+          <span class="skill-pill">FastAPI</span>
+          <span class="skill-pill">Docker</span>
+          <span class="skill-pill">Streamlit</span>
+          <span class="skill-pill">Hadoop</span>
+          <span class="skill-pill">Hive</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="skill-group-label">Plateformes Cloud</div>
+        <div class="skill-pills">
+          <span class="skill-pill cloud">AWS SageMaker</span>
+          <span class="skill-pill cloud">AWS EC2 · S3 · EMR</span>
+          <span class="skill-pill cloud">AWS Glue · Lambda · ECS</span>
+          <span class="skill-pill cloud">Azure ML</span>
+          <span class="skill-pill cloud">Azure Databricks</span>
+          <span class="skill-pill cloud">Azure Synapse</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="skill-group-label">Mathématiques &amp; Données</div>
+        <div class="skill-pills">
+          <span class="skill-pill">Algèbre Linéaire</span>
+          <span class="skill-pill">Statistiques &amp; Probabilités</span>
+          <span class="skill-pill">SQL</span>
+          <span class="skill-pill">Pandas · NumPy</span>
+          <span class="skill-pill">Visualisation de Données</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJETS IA -->
+<section id="projets">
+  <div class="container reveal">
+    <p class="section-label">05 — Projets IA</p>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-label">MLOps Complet</div>
+        <div class="project-title">Prédiction de Prix Immobiliers</div>
+        <div class="project-desc">Pipeline ML de bout en bout : modèle XGBoost avec suivi d'expériences MLflow, optimisation Optuna, conteneurisation Docker et déploiement AWS (S3, ECS) avec endpoint FastAPI temps réel et dashboard Streamlit.</div>
+        <div class="project-tags">
+          <span class="project-tag">XGBoost</span>
+          <span class="project-tag">MLflow</span>
+          <span class="project-tag">Optuna</span>
+          <span class="project-tag">FastAPI</span>
+          <span class="project-tag">Docker</span>
+          <span class="project-tag">AWS S3/ECS</span>
+          <span class="project-tag">Streamlit</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-label">IA Détection de Risque</div>
+        <div class="project-title">Détection de Fraude Bancaire</div>
+        <div class="project-desc">Système IA de classification supervisée pour la détection de fraude en temps réel. Gestion avancée du déséquilibre de classes et évaluation par métriques adaptées au risque (Précision, Rappel, F1) pour les décisions à fort enjeu.</div>
+        <div class="project-tags">
+          <span class="project-tag">Random Forest</span>
+          <span class="project-tag">SVM</span>
+          <span class="project-tag">Données Déséquilibrées</span>
+          <span class="project-tag">Scikit-learn</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-label">Recherche Deep Learning</div>
+        <div class="project-title">Benchmark CNN vs ResNet</div>
+        <div class="project-desc">Étude comparative : conception, entraînement et benchmark d'architectures CNN et ResNet sous TensorFlow avec évaluation systématique (Accuracy, F1, Recall) et méthodologie rigoureuse de sélection de modèle.</div>
+        <div class="project-tags">
+          <span class="project-tag">CNN</span>
+          <span class="project-tag">ResNet</span>
+          <span class="project-tag">TensorFlow</span>
+          <span class="project-tag">Benchmark</span>
+          <span class="project-tag">Deep Learning</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-label">IA pour la Science</div>
+        <div class="project-title">Prédiction de Variables Océaniques (CALCOFI)</div>
+        <div class="project-desc">Modèle IA de régression pour la prédiction de variables environnementales océaniques avec une précision exceptionnelle (MSE = 0.000203, R² = 0.99). Déployé sur AWS S3 avec automatisation CLI pour une inférence reproductible.</div>
+        <div class="project-tags">
+          <span class="project-tag">Régression</span>
+          <span class="project-tag">EDA</span>
+          <span class="project-tag">AWS S3</span>
+          <span class="project-tag">Python</span>
+          <span class="project-tag">R²=0.99</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CLOUD -->
+<section id="cloud">
+  <div class="container reveal">
+    <p class="section-label">06 — Cloud &amp; Déploiement</p>
+    <div class="cloud-grid">
+      <div class="cloud-card">
+        <div class="cloud-logo">AWS</div>
+        <div class="cloud-title">Amazon Web Services</div>
+        <div class="cloud-desc">Déploiement de pipelines IA sur AWS — de l'entraînement distribué sur EMR au serving conteneurisé avec ECS et APIs d'inférence temps réel.</div>
+        <div class="cloud-services">
+          <span class="service-tag">EC2</span><span class="service-tag">S3</span><span class="service-tag">EMR</span>
+          <span class="service-tag">Glue</span><span class="service-tag">Lambda</span><span class="service-tag">Redshift</span>
+          <span class="service-tag">ECS</span><span class="service-tag">SageMaker</span>
+        </div>
+      </div>
+      <div class="cloud-card">
+        <div class="cloud-logo">Azure</div>
+        <div class="cloud-title">Microsoft Azure</div>
+        <div class="cloud-desc">Construction de plateformes IA à l'échelle entreprise — entraînement et suivi avec Azure ML, traitement distribué massif avec Databricks et Synapse Analytics.</div>
+        <div class="cloud-services">
+          <span class="service-tag">Azure ML</span><span class="service-tag">Databricks</span>
+          <span class="service-tag">Synapse Analytics</span><span class="service-tag">Data Factory</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="container reveal">
+    <p class="section-label">07 — Certifications</p>
+    <div class="certs-grid">
+
+      <div class="cert-item">
+        <div class="cert-icon">🎓</div>
+        <div>
+          <div class="cert-name">Supervised ML : Régression &amp; Classification</div>
+          <div class="cert-org">DeepLearning.AI &amp; Stanford · Coursera</div>
+          <div class="cert-date">Août 2024</div>
+          <a class="cert-verify" href="https://www.coursera.org/account/accomplishments/records/KIKWLGK3MDCZ" target="_blank">
+            <svg viewBox="0 0 24 24"><path d="M12 1a11 11 0 1 0 11 11A11 11 0 0 0 12 1zm5.707 8.707-6 6a1 1 0 0 1-1.414 0l-3-3a1 1 0 0 1 1.414-1.414L11 13.586l5.293-5.293a1 1 0 0 1 1.414 1.414z"/></svg>
+            Vérifier le Diplôme
+          </a>
+        </div>
+      </div>
+
+      <div class="cert-item">
+        <div class="cert-icon">🎓</div>
+        <div>
+          <div class="cert-name">Algorithmes d'Apprentissage Avancés</div>
+          <div class="cert-org">DeepLearning.AI &amp; Stanford · Coursera</div>
+          <div class="cert-date">Octobre 2024</div>
+          <a class="cert-verify" href="https://www.coursera.org/account/accomplishments/records/EJ67EH1UAGRJ" target="_blank">
+            <svg viewBox="0 0 24 24"><path d="M12 1a11 11 0 1 0 11 11A11 11 0 0 0 12 1zm5.707 8.707-6 6a1 1 0 0 1-1.414 0l-3-3a1 1 0 0 1 1.414-1.414L11 13.586l5.293-5.293a1 1 0 0 1 1.414 1.414z"/></svg>
+            Vérifier le Diplôme
+          </a>
+        </div>
+      </div>
+
+      <div class="cert-item">
+        <div class="cert-icon">💼</div>
+        <div>
+          <div class="cert-name">Simulation Métier Data Science</div>
+          <div class="cert-org">BCG X · Forage</div>
+          <div class="cert-date">Février 2026</div>
+          <a class="cert-verify" href="https://www.theforage.com/completion-certificates/SKZxezskWgmFjRvj9/Tcz8gTtprzAS4xSoK_SKZxezskWgmFjRvj9_6945736bbb07881bfd41ccb6_1772155342566_completion_certificate.pdf" target="_blank">
+            <svg viewBox="0 0 24 24"><path d="M12 1a11 11 0 1 0 11 11A11 11 0 0 0 12 1zm5.707 8.707-6 6a1 1 0 0 1-1.414 0l-3-3a1 1 0 0 1 1.414-1.414L11 13.586l5.293-5.293a1 1 0 0 1 1.414 1.414z"/></svg>
+            Vérifier le Diplôme
+          </a>
+        </div>
+      </div>
+
+      <div class="cert-item">
+        <div class="cert-icon">📊</div>
+        <div>
+          <div class="cert-name">Simulation Métier Data Analytics</div>
+          <div class="cert-org">Deloitte Australie · Forage</div>
+          <div class="cert-date">Novembre 2025</div>
+          <a class="cert-verify" href="https://www.theforage.com/completion-certificates/9PBTqmSxAf6zZTseP/io9DzWKe3PTsiS6GG_9PBTqmSxAf6zZTseP_6945736bbb07881bfd41ccb6_1766165280855_completion_certificate.pdf" target="_blank">
+            <svg viewBox="0 0 24 24"><path d="M12 1a11 11 0 1 0 11 11A11 11 0 0 0 12 1zm5.707 8.707-6 6a1 1 0 0 1-1.414 0l-3-3a1 1 0 0 1 1.414-1.414L11 13.586l5.293-5.293a1 1 0 0 1 1.414 1.414z"/></svg>
+            Vérifier le Diplôme
+          </a>
+        </div>
+      </div>
+
+      <div class="cert-item">
+        <div class="cert-icon">📊</div>
+        <div>
+          <div class="cert-name">Simulation Métier Data Analytics</div>
+          <div class="cert-org">Quantium · Forage</div>
+          <div class="cert-date">Février 2026</div>
+          <a class="cert-verify" href="https://www.theforage.com/completion-certificates/32A6DqtsbF7LbKdcq/NkaC7knWtjSbi6aYv_32A6DqtsbF7LbKdcq_6945736bbb07881bfd41ccb6_1771548470459_completion_certificate.pdf" target="_blank">
+            <svg viewBox="0 0 24 24"><path d="M12 1a11 11 0 1 0 11 11A11 11 0 0 0 12 1zm5.707 8.707-6 6a1 1 0 0 1-1.414 0l-3-3a1 1 0 0 1 1.414-1.414L11 13.586l5.293-5.293a1 1 0 0 1 1.414 1.414z"/></svg>
+            Vérifier le Diplôme
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-name">Meziane Mouad · Ingénieur IA</div>
+      <div class="footer-contact">
+        <div><a href="mailto:mouadmeziane28@gmail.com">mouadmeziane28@gmail.com</a></div>
+        <div>+212 697 937 544</div>
+        <div><a href="https://www.linkedin.com/in/mouad-meziane/" target="_blank">linkedin.com/in/mouad-meziane ↗</a></div>
+        <a href="#" class="back-link">← Retour au CV</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  if ('IntersectionObserver' in window) {
+    const reveals = document.querySelectorAll('.reveal');
+    reveals.forEach(el => el.classList.add('js-hidden'));
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+      });
+    }, { threshold: 0.06, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => observer.observe(el));
+  }
+</script>
+</body>
+</html>
